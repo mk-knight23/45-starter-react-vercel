@@ -1,8 +1,26 @@
-# https://react-vercel-ebon.vercel.app
+# 13-react-vercel-starter
 
-# https://singular-gingersnap-7abdcf.netlify.app 
+✨ Professional Repository Showcase Template
 
-# https://reactfire-57a6e.web.app
+## Live Deployments
 
-# Getting Started with Create React App
+- **GitHub Pages:** https://mk-knight23.github.io/13-react-vercel-starter/
+- **Vercel:** https://13-react-vercel-starter.vercel.app
 
+Status: 🟡 GH Pages Live | Vercel Pending (Daily Limit)
+
+## Features
+- 📱 Mobile Responsive
+- ⚡ Fast Performance
+- 🎨 Modern UI/UX
+
+## Quick Start
+```bash
+git clone https://github.com/mk-knight23/13-react-vercel-starter.git
+cd 13-react-vercel-starter
+npm install
+npm run dev
+```
+
+## License
+MIT
