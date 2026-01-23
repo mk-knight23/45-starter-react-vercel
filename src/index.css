@@ -1,9 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #4f46e5;
+}
 
 @layer base {
     body {
-        @apply antialiased bg-white text-slate-900 overflow-x-hidden;
+        @apply bg-white text-slate-900 antialiased selection:bg-indigo-500/30;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
+}
+
+html {
+    scroll-behavior: smooth;
 }

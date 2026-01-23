@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Cloud, Shield, Zap, Globe, Users, Menu, X, Github } from 'lucide-react';
 import { useState } from 'react';
 
@@ -145,7 +145,7 @@ function App() {
                             <Zap className="text-indigo-600 w-6 h-6 fill-indigo-600" />
                             <span>START<span className="text-indigo-600">ER</span></span>
                         </div>
-                        <p>© 2024 MK-VERCEL-STARTER</p>
+                        <p>© 2026 MK-STARTER // DEPLOYMENT OS</p>
                     </div>
                     <div className="flex gap-10">
                         <a href="#" className="hover:text-indigo-600">Privacy</a>
@@ -158,8 +158,5 @@ function App() {
     );
 }
 
-function AnimatePresence({ children }: { children: any }) {
-    return children;
-}
 
 export default App;
