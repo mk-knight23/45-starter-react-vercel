@@ -4,6 +4,10 @@
 
 A premium foundation for high-performance React applications. Engineered for seamless Vercel integration, featuring sophisticated architectural patterns and a monochromatic minimalist design system.
 
+## Live Demo
+
+- **Vercel**: https://13-react-vercel-starter.vercel.app
+
 ## Features
 - 🚀 High-Performance React Starter
 - ⚫ Black & White Minimal Design System
@@ -22,6 +26,15 @@ A premium foundation for high-performance React applications. Engineered for sea
 npm install
 npm run dev
 ```
+
+## Build
+```bash
+npm run build
+```
+
+## Deployment
+
+Deployed to **Vercel** with zero-config. Push to main branch for automatic deployment.
 
 ## Documentation
 - [Architecture Overview](docs/ARCHITECTURE.md)
