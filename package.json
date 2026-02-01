@@ -1,8 +1,8 @@
 {
-  "name": "13-react-vercel-starter",
+  "name": "45-starter-react-vercel",
   "private": false,
-  "version": "2.1.0",
-  "description": "Premium React SaaS starter modernized with React 19, Vite 6, and Tailwind CSS v4.",
+  "version": "3.0.0",
+  "description": "Production-ready React application with Black & White Minimal design, featuring multi-page routing, interactive components, and modern best practices.",
   "type": "module",
   "scripts": {
     "lint": "eslint .",
@@ -12,20 +12,21 @@
     "type-check": "tsc --noEmit"
   },
   "keywords": [
-    "saas",
-    "starter",
-    "vercel",
     "react",
+    "vercel",
     "typescript",
-    "tailwind"
+    "tailwind",
+    "starter",
+    "portfolio",
+    "production-ready"
   ],
   "author": "Kazi Musharraf",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mk-knight23/13-react-vercel-starter.git"
+    "url": "git+https://github.com/mk-knight23/45-starter-react-vercel.git"
   },
-  "homepage": "https://mk-knight23.github.io/13-react-vercel-starter/",
+  "homepage": "https://mk-knight23.github.io/45-starter-react-vercel/",
   "dependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^12.29.2",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^22.10.5",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.7.0",

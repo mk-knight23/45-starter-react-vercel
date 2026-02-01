@@ -4,3 +4,6 @@ export { Features } from './Features';
 export { Pricing } from './Pricing';
 export { CTA } from './CTA';
 export { Footer } from './Footer';
+export { ErrorBoundary } from './ErrorBoundary';
+export { Loading } from './Loading';
+export { EmptyState } from './EmptyState';
