@@ -28,13 +28,18 @@
   },
   "homepage": "https://mk-knight23.github.io/45-starter-react-vercel/",
   "dependencies": {
+    "@sentry/react": "^10.38.0",
+    "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.29.2",
     "lucide-react": "^0.474.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router-dom": "^7.13.0",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "vite-plugin-pwa": "^1.2.0",
+    "web-vitals": "^5.1.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
