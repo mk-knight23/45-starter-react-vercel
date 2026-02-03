@@ -6,8 +6,9 @@ A production-ready React SaaS starter featuring authentication, dashboard, mock 
 
 ## Live Demo
 
-- **Vercel**: https://45-starter-react-vercel.vercel.app *(placeholder)*
-- **GitHub Pages**: https://mk-knight23.github.io/45-starter-react-vercel/ *(placeholder)*
+- **Vercel**: https://45-starter-react-vercel.vercel.app ✓
+- **Cloudflare Pages**: https://45-starter-react-vercel.pages.dev ✓
+- **GitHub Pages**: https://mk-knight23.github.io/45-starter-react-vercel/ *(enable in repo settings)*
 
 ## Features
 
