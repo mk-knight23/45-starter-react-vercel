@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
 import { Navbar, Footer } from '../components';
 import { useState } from 'react';
+import { useReducedMotion } from '../utils/accessibility';
 
 const navLinks = [
     { label: 'Features', href: '/#features' },
@@ -77,6 +78,7 @@ const categories = ['All', 'Technology', 'Development', 'Design', 'Performance',
 export function Blog() {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
+    const prefersReducedMotion = useReducedMotion();
 
     const filteredPosts = blogPosts.filter(post => {
         const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
@@ -87,6 +89,12 @@ export function Blog() {
 
     const featuredPost = blogPosts.find(p => p.featured);
     const regularPosts = filteredPosts.filter(p => !p.featured);
+
+    // Animation config that respects reduced motion preference
+    const motionConfig = prefersReducedMotion ? {} : {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+    };
 
     return (
         <div className="min-h-screen">
@@ -119,21 +127,29 @@ export function Blog() {
                     <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
                         {/* Search */}
                         <div className="w-full md:w-96">
+                            <label htmlFor="blog-search" className="sr-only">Search articles</label>
                             <input
-                                type="text"
+                                id="blog-search"
+                                type="search"
                                 placeholder="Search articles..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
+                                aria-label="Search articles"
+                                aria-describedby="search-results-count"
                                 className="w-full px-6 py-4 bg-white border-2 border-black/10 rounded-2xl font-medium focus:border-black focus:outline-none transition-colors"
                             />
+                            <span id="search-results-count" className="sr-only">
+                                {filteredPosts.length} {filteredPosts.length === 1 ? 'article' : 'articles'} found
+                            </span>
                         </div>
 
                         {/* Categories */}
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-3" role="group" aria-label="Filter by category">
                             {categories.map(category => (
                                 <button
                                     key={category}
                                     onClick={() => setSelectedCategory(category)}
+                                    aria-pressed={selectedCategory === category}
                                     className={`px-6 py-3 font-black rounded-xl text-sm transition-all active:scale-95 ${selectedCategory === category
                                             ? 'bg-black text-white'
                                             : 'bg-white text-black border-2 border-black/10 hover:border-black'
@@ -197,27 +213,31 @@ export function Blog() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             className="text-center py-24"
+                            role="status"
+                            aria-live="polite"
                         >
                             <p className="text-2xl text-black/40 font-medium">No articles found matching your criteria.</p>
                         </motion.div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
                             {regularPosts.map((post, idx) => (
                                 <motion.article
                                     key={post.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: idx * 0.1 }}
+                                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                                    whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                                    transition={{ delay: prefersReducedMotion ? 0 : idx * 0.1 }}
                                     viewport={{ once: true }}
                                     className="p-8 bg-white border-2 border-black/10 rounded-[2.5rem] hover:border-black transition-all duration-300 group"
+                                    role="listitem"
+                                    aria-labelledby={`post-${post.id}-title`}
                                 >
                                     <div className="flex items-center gap-3 mb-4">
-                                        <span className="px-3 py-1 bg-black/5 font-black rounded-full text-xs uppercase tracking-widest">
+                                        <span className="px-3 py-1 bg-black/5 font-black rounded-full text-xs uppercase tracking-widest" aria-label={`Category: ${post.category}`}>
                                             {post.category}
                                         </span>
                                     </div>
 
-                                    <h3 className="text-2xl font-black mb-4 tracking-tight leading-tight group-hover:underline decoration-2 underline-offset-4">
+                                    <h3 id={`post-${post.id}-title`} className="text-2xl font-black mb-4 tracking-tight leading-tight group-hover:underline decoration-2 underline-offset-4">
                                         {post.title}
                                     </h3>
 
@@ -226,18 +246,23 @@ export function Blog() {
                                     </p>
 
                                     <div className="flex items-center justify-between pt-6 border-t border-black/10">
-                                        <div className="flex items-center gap-4 text-black/40 font-medium text-sm">
+                                        <div className="flex items-center gap-4 text-black/40 font-medium text-sm" aria-label={`Published ${new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} · ${post.readTime} read`}>
                                             <div className="flex items-center gap-1">
-                                                <Calendar className="w-4 h-4" />
-                                                {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                                <Calendar className="w-4 h-4" aria-hidden="true" />
+                                                <time dateTime={post.date}>
+                                                    {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                                </time>
                                             </div>
                                             <div className="flex items-center gap-1">
-                                                <Clock className="w-4 h-4" />
-                                                {post.readTime}
+                                                <Clock className="w-4 h-4" aria-hidden="true" />
+                                                <span>{post.readTime}</span>
                                             </div>
                                         </div>
-                                        <button className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <ArrowRight className="w-5 h-5" />
+                                        <button
+                                            className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                            aria-label={`Read ${post.title}`}
+                                        >
+                                            <ArrowRight className="w-5 h-5" aria-hidden="true" />
                                         </button>
                                     </div>
                                 </motion.article>
@@ -248,30 +273,40 @@ export function Blog() {
             </section>
 
             {/* Newsletter */}
-            <section className="py-24 px-6">
+            <section className="py-24 px-6" aria-labelledby="newsletter-heading">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="p-12 bg-black text-white rounded-[3rem] text-center"
                     >
-                        <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">
+                        <h2 id="newsletter-heading" className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">
                             Stay Updated
                         </h2>
                         <p className="text-xl text-white/70 mb-8 leading-relaxed">
                             Get the latest articles and insights delivered to your inbox.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                        <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
+                            <label htmlFor="newsletter-email" className="sr-only">Email address</label>
                             <input
+                                id="newsletter-email"
                                 type="email"
                                 placeholder="Enter your email"
-                                className="flex-1 px-6 py-4 bg-white text-black rounded-2xl font-medium focus:outline-none"
+                                required
+                                aria-describedby="newsletter-description"
+                                className="flex-1 px-6 py-4 bg-white text-black rounded-2xl font-medium focus:outline-none focus:ring-4 focus:ring-white/20"
                             />
-                            <button className="px-8 py-4 bg-white text-black font-black rounded-2xl hover:bg-white/90 transition-all active:scale-95">
+                            <button
+                                type="submit"
+                                className="px-8 py-4 bg-white text-black font-black rounded-2xl hover:bg-white/90 transition-all active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/20"
+                            >
                                 Subscribe
                             </button>
-                        </div>
+                        </form>
+                        <p id="newsletter-description" className="sr-only">
+                            Subscribe to our newsletter to receive the latest articles and insights.
+                        </p>
                     </motion.div>
                 </div>
             </section>

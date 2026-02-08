@@ -4,12 +4,14 @@ import { Home, About, Contact, Blog } from './pages';
 import { AuthProvider, ProtectedRoute } from './features/auth';
 import { LoginPage, SignupPage } from './features/auth';
 import { DashboardLayout, DashboardHome, SettingsPage } from './features/dashboard';
+import { SkipLink } from './utils/accessibility';
 
 function App() {
   return (
     <ErrorBoundary>
       <AuthProvider>
         <BrowserRouter>
+          <SkipLink />
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Home />} />

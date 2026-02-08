@@ -8,5 +8,5 @@ export default defineConfig({
         react(),
         tailwindcss(),
     ],
-    base: process.env.VERCEL || process.env.NETLIFY ? './' : '/45-starter-react-vercel/',
+    base: process.env.VERCEL || process.env.NETLIFY || process.env.CF_PAGES ? './' : '/45-starter-react-vercel/',
 })
