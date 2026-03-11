@@ -5,6 +5,7 @@
   "description": "Production-ready React application with Black & White Minimal design, featuring multi-page routing, interactive components, and modern best practices.",
   "type": "module",
   "scripts": {
+    "production": "npm run build && npm start",
     "lint": "eslint .",
     "dev": "vite",
     "build": "tsc && vite build",
